@@ -1,0 +1,14 @@
+i {
+  color: yellow;
+  font-size: 30px;
+}
+.temperature {
+  color: black;
+  font-weight: normal;
+}
+.container {
+  max-width: 700px;
+  height: 400px;
+  border: 2px solid lightblue;
+  border-radius: 40px;
+}
