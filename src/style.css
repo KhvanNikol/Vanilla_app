@@ -7,8 +7,12 @@ i {
   font-weight: normal;
 }
 .container {
+  text-decoration: none;
   max-width: 700px;
   height: 400px;
   border: 2px solid lightblue;
   border-radius: 40px;
+}
+li {
+  list-style: none;
 }
