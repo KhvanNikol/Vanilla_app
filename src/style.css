@@ -7,6 +7,7 @@ i {
   font-weight: normal;
 }
 .container {
+  text-align: left;
   text-decoration: none;
   max-width: 700px;
   height: 400px;
@@ -15,4 +16,8 @@ i {
 }
 li {
   list-style: none;
+}
+body {
+  text-align: center;
+  margin: 20px;
 }
