@@ -21,16 +21,19 @@ function weatherDescription(response) {
   let descriptionElement = document.querySelector("#description");
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon");
+  let cityElement = document.querySelector("#city");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatData(response.data.dt * 1000);
+  cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  celciusTemperature = response.data.main.temp;
 }
 
 function search(city) {
@@ -44,6 +47,25 @@ function submitCity(event) {
   let cityElement = document.querySelector("#city-input");
   search(cityElement.value);
 }
-search("Tokyo");
+function displayFahrenheitTemp(event) {
+  event.preventDefault();
+  let fahrenheitTemperature = (celciusTemperature * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+let celciusTemperature = null;
+
+function displayCelciusTemp(event) {
+  event.preventDefault();
+  let celciusElement = document.querySelector("#temperature");
+  celciusElement.innerHTML = Math.round(celciusTemperature);
+}
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", submitCity);
+let fahrenheitElement = document.querySelector("#fahrenheit-link");
+fahrenheitElement.addEventListener("click", displayFahrenheitTemp);
+let celciusElement = document.querySelector("#celcius-link");
+celciusElement.addEventListener("click", displayCelciusTemp);
+
+search("Tokyo");
