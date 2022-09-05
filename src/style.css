@@ -37,9 +37,10 @@ body {
   font-family: "Times New Roman", Times, serif;
 }
 #temperature {
-  font-size: 26px;
+  font-size: 30px;
   margin: 0px 0px 0px 8px;
   padding: 3px;
+  position: relative;
 }
 
 #city {
