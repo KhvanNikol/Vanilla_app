@@ -35,6 +35,25 @@ function weatherDescription(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
   celciusTemperature = response.data.main.temp;
 }
+function displayWeatherForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let day = ["Wed", "Thu", "Fri", "Sat"];
+  day.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+          <div class="weather-forecast-date">${day}</div>
+          <img src="http://openweathermap.org/img/wn/50d@2x.png" alt="" width="42">
+          <div class="forecast-weather-temperatures">
+            <span class="forecast-weather-temperature-max">30°</span>
+                <span class="forecast-weather-temperature-min">25°</span>
+          </div>
+        `;
+    forecastHTML = forecastHTML + `</div>`;
+    forecastElement.innerHTML = forecastHTML;
+  });
+}
 
 function search(city) {
   let apiKey = "8bd19818f1a9f1fdc34f62c973ba9f77";
@@ -60,6 +79,8 @@ function displayCelciusTemp(event) {
   let celciusElement = document.querySelector("#temperature");
   celciusElement.innerHTML = Math.round(celciusTemperature);
 }
+
+displayWeatherForecast();
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", submitCity);
