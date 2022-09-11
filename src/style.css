@@ -6,11 +6,13 @@
   font-weight: normal;
 }
 .container {
-  margin-top: 10px;
+  position: fixed;
+  margin-top: 100px;
   position: relative;
   text-align: left;
   text-decoration: none;
   max-width: 600px;
+  max-height: 900px;
   background: linear-gradient(
     to top,
     rgb(43, 199, 188) 0%,
@@ -51,11 +53,9 @@ li:first-letter {
 body {
   text-align: center;
   margin: 0px;
-  max-width: 800px;
-  max-height: 700px;
+
   font-family: "Times New Roman", Times, serif;
   box-sizing: border-box;
-  background: -moz-repeating-radial-gradient(circle #39cce954 #ccc 20px);
   color: #095b81d5;
 }
 #temperature {
@@ -101,5 +101,6 @@ small {
 }
 input,
 #city-input.form-control {
-  margin-left: 13px;
+  margin-left: 20px;
+  text-align: center;
 }
