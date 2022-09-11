@@ -14,6 +14,13 @@ function formatData(timestamp) {
   let day = days[date.getDay()];
   return `${day} ${hour}:${minutes}`;
 }
+function getWeatherForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "c95d60a1e3adbeb286133f1ebebc2579";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayWeatherForecast);
+}
 function weatherDescription(response) {
   let temperatureElement = document.querySelector("#temperature");
   let humidityElement = document.querySelector("#humidity");
@@ -34,22 +41,37 @@ function weatherDescription(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
   celciusTemperature = response.data.main.temp;
+  getWeatherForecast(response.data.coord);
 }
-function displayWeatherForecast() {
+function formatDay(timeStamp) {
+  let date = new Date(timeStamp * 1000);
+  let days = date.getDay();
+  let day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return day[days];
+}
+function displayWeatherForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
-  let day = ["Wed", "Thu", "Fri", "Sat"];
-  day.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-          <div class="weather-forecast-date">${day}</div>
-          <img src="http://openweathermap.org/img/wn/50d@2x.png" alt="" width="42">
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+          <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+          <img src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png" alt=""width="42"/>
           <div class="forecast-weather-temperatures">
-            <span class="forecast-weather-temperature-max">30°</span>
-                <span class="forecast-weather-temperature-min">25°</span>
+            <span class="forecast-weather-temperature-max">${Math.round(
+              forecastDay.temp.max
+            )}</span> /
+                <span class="forecast-weather-temperature-min">${Math.round(
+                  forecastDay.temp.min
+                )}</span>
           </div>
         `;
+    }
     forecastHTML = forecastHTML + `</div>`;
     forecastElement.innerHTML = forecastHTML;
   });
@@ -79,8 +101,6 @@ function displayCelciusTemp(event) {
   let celciusElement = document.querySelector("#temperature");
   celciusElement.innerHTML = Math.round(celciusTemperature);
 }
-
-displayWeatherForecast();
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", submitCity);
